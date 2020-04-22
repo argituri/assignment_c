@@ -54,7 +54,6 @@ public class PersonTest {
     void test1() {
             testPerson.setWorkplace(wp);
             assertEquals(testPerson.getDescription(), "Name: " + fName + " " + lName + ", \n" +
-                    "Age: " + 29 + " years, " +
                     "Works at: " + wp.getName() + ", " +
                     "Has " + testPerson.getRelativeIds().size() + " relatives.");
     }

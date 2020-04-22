@@ -3,6 +3,9 @@ package main.java;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -54,6 +57,15 @@ public class Person implements Serializable {
     public Workplace getWorkplace() {
         if (this.workplace != null){
             return workplace;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public String getWorkplaceName() {
+        if (this.workplace != null){
+            return workplace.getName();
         }
         else{
             return null;
@@ -131,9 +143,16 @@ public class Person implements Serializable {
 
     public int getAge(){
         Date now = new Date();
-        long msDiff = Math.abs(this.bDate.getTime() - now.getTime());
-        long days = TimeUnit.MILLISECONDS.toDays(msDiff);
-        return (int) days/365;
+        LocalDate currentDate = now.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        LocalDate birthDate = this.bDate.toInstant().atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        if ((birthDate != null) && (currentDate != null)) {
+            return Period.between(birthDate, currentDate).getYears();
+        } else {
+            return 0;
+        }
     }
 
     // Utility methods
@@ -161,8 +180,7 @@ public class Person implements Serializable {
     // Print information about this person
     public String getDescription(){
         return "Name: " + this.fName + " " + this.lName + ", \n" +
-                "Age: " + this.getAge() + " years, " +
-                "Works at: " + this.getWorkplace().getName() + ", " +
+                "Works at: " + this.getWorkplaceName() + ", " +
                 "Has " + this.relativeIds.size() + " relatives.";
     }
 

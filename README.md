@@ -40,8 +40,10 @@ Workplace class has attributes for
 * a list of workers' ids.
 
 # Unit tests
-The project has two quite simple Junit 5 tests, which can be run with maven from the cmd/terminal using:
+The project has two quite simple Junit 5 tests, which can easily be run with maven from the cmd/terminal using:
 
 > maven clean test
+
+Unit test classes are located at ./target/test-classes.
 
 Main Application/Software or database connections etc. are not implemented as per instructions. 
